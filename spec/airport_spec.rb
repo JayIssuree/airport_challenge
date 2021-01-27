@@ -2,7 +2,8 @@ require 'airport'
 
 describe Airport do
 
-  let(:subject) { described_class.new("RSPEC Airport") }
+  let(:weather) { double :weather, :generate => :sunny, :status => :sunny }
+  let(:subject) { described_class.new("RSPEC Airport", weather: weather) }
   let(:plane) { double :plane, :update_location => nil }
 
   describe '#initialize' do
@@ -53,6 +54,19 @@ describe Airport do
     it 'should call update location on the plane' do
       expect(plane).to receive(:update_location).with(nil)
       subject.release(plane)
+    end
+
+  end
+
+  describe 'weather conditions' do
+
+    it 'should initialize a weather condition upon initialization' do
+      expect(subject.weather_status).to eq(:sunny)
+    end
+
+    it 'should be able to generate new weather' do
+      expect(weather).to receive(:generate)
+      subject.generate_new_weather
     end
 
   end
