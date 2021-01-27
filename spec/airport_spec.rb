@@ -32,7 +32,7 @@ describe Airport do
 
     it 'should not store a plane when the hangar is full' do
       subject.capacity.times { subject.store(plane) }
-      expect{ subject.store(plane) }.to raise_error("Hangar is at capacity")
+      expect { subject.store(plane) }.to raise_error("Hangar is at capacity")
     end
 
     it 'should call update location on the plane' do
@@ -45,9 +45,9 @@ describe Airport do
   describe '#release(plane)' do
     
     it 'should remove the plane from the hangar' do
-        subject.store(plane)
-        expect { subject.release(plane) }.to change { subject.hangar.length }.by(-1)
-        expect(subject.hangar).to_not include(plane)
+      subject.store(plane)
+      expect { subject.release(plane) }.to change { subject.hangar.length }.by(-1)
+      expect(subject.hangar).to_not include(plane)
     end
 
     it 'should call update location on the plane' do

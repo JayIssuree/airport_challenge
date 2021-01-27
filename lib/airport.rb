@@ -14,6 +14,7 @@ class Airport
 
   def store(plane)
     fail "Hangar is at capacity" if full?
+
     plane.update_location(self)
     hangar << plane
   end
@@ -21,10 +22,6 @@ class Airport
   def release(plane)
     hangar.delete(plane)
     plane.update_location(nil)
-  end
-
-  def is_full?
-    full?
   end
 
   private

@@ -25,9 +25,18 @@ describe Plane do
   describe '#take_off' do
       
     it 'should take off from an airport' do
-        subject.land(airport)
-        allow(subject).to receive(:current_location).and_return(airport)
-        expect(subject.take_off).to eq("#{subject} successfully took off from #{airport.name}")
+      subject.land(airport)
+      allow(subject).to receive(:current_location).and_return(airport)
+      expect(subject.take_off).to eq("#{subject} successfully took off from #{airport.name}")
+    end
+
+  end
+
+  describe '#update_location(location)' do
+    
+    it 'should update the location' do
+      subject.update_location(airport)
+      expect(subject.current_location).to eq(airport)
     end
 
   end
