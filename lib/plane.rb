@@ -8,15 +8,17 @@ class Plane
 
   def land(airport)
     airport.store(self)
-    @current_location = airport
     "#{self} successfully landed at #{airport.name}"
   end
 
   def take_off
-    current_location.release(self)
     airport_name = current_location.name
-    @current_location = nil
+    current_location.release(self)
     "#{self} successfully took off from #{airport_name}"
+  end
+
+  def update_location(location)
+    @current_location = location
   end
 
 end

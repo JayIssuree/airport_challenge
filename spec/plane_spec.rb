@@ -5,7 +5,8 @@ describe Plane do
   let(:airport) { double :airport, 
                          :hangar => [],
                          :name => "Heathrow",
-                         :store => nil 
+                         :store => nil,
+                         :release => nil
   }
     
   describe '#land(airport)' do
@@ -25,8 +26,7 @@ describe Plane do
       
     it 'should take off from an airport' do
         subject.land(airport)
-        airport.hangar << subject
-        expect(airport).to receive(:release).with(subject)
+        allow(subject).to receive(:current_location).and_return(airport)
         expect(subject.take_off).to eq("#{subject} successfully took off from #{airport.name}")
     end
 
