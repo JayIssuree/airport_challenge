@@ -4,7 +4,7 @@ describe Airport do
 
   let(:weather) { double :weather, :generate => :sunny, :status => :sunny }
   let(:subject) { described_class.new("RSPEC Airport", weather: weather) }
-  let(:plane) { double :plane, :update_location => nil, :current_location => nil }
+  let(:plane) { double :plane, :update_location => nil, :current_location => nil, :in_flight => nil }
 
   describe '#initialize' do
       
@@ -52,6 +52,11 @@ describe Airport do
       second_airport = described_class.new("Second airport")
       allow(plane).to receive(:current_location).and_return(second_airport)
       expect { subject.store(plane) }.to raise_error("Plane is currently at #{second_airport.name}")
+    end
+
+    it 'should not store planes that are already flying' do
+      allow(plane).to receive(:in_flight).and_return(true)
+      expect{ subject.store(plane) }.to raise_error("Cannot store plane that is in flight")
     end
 
   end
