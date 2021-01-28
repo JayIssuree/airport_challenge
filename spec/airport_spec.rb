@@ -32,13 +32,20 @@ describe Airport do
     end
 
     it 'should not store a plane when the hangar is full' do
-      subject.capacity.times { subject.store(plane) }
-      expect { subject.store(plane) }.to raise_error("Hangar is at capacity")
+      subject = described_class.new("RSPEC Airport", 1)
+      subject.store(plane)
+      plane2 = double(:plane)
+      expect { subject.store(plane2) }.to raise_error("Hangar is at capacity")
     end
 
     it 'should call update location on the plane' do
       expect(plane).to receive(:update_location).with(subject)
       subject.store(plane)
+    end
+
+    it 'should not store a duplicate of the plane' do
+      subject.store(plane)
+      expect{ subject.store(plane) }.to raise_error("Plane already in hangar")
     end
 
   end
