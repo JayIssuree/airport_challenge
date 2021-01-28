@@ -45,13 +45,13 @@ describe Airport do
 
     it 'should not store a duplicate of the plane' do
       subject.store(plane)
-      expect{ subject.store(plane) }.to raise_error("Plane already in hangar")
+      expect { subject.store(plane) }.to raise_error("Plane already in hangar")
     end
 
     it 'should not store a plane that is in another airport' do
       second_airport = described_class.new("Second airport")
       allow(plane).to receive(:current_location).and_return(second_airport)
-      expect{ subject.store(plane) }.to raise_error("Plane is currently at #{second_airport.name}")
+      expect { subject.store(plane) }.to raise_error("Plane is currently at #{second_airport.name}")
     end
 
   end
