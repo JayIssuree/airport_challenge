@@ -6,7 +6,8 @@ describe Plane do
                          :hangar => [],
                          :name => "Heathrow",
                          :store => nil,
-                         :release => nil
+                         :release => nil,
+                         :weather_status => nil
   }
     
   describe '#land(airport)' do
@@ -20,6 +21,11 @@ describe Plane do
       subject.land(airport)
     end
 
+    it 'should not land in stormy weather' do
+      allow(airport).to receive(:weather_status).and_return(:stormy)
+      expect{ subject.land(airport) }.to raise_error("Cannot land in stormy weather")
+    end
+
   end
 
   describe '#take_off' do
@@ -28,6 +34,13 @@ describe Plane do
       subject.land(airport)
       allow(subject).to receive(:current_location).and_return(airport)
       expect(subject.take_off).to eq("#{subject} successfully took off from #{airport.name}")
+    end
+
+    it 'should not take off in stormy weather' do
+      subject.land(airport)
+      allow(subject).to receive(:current_location).and_return(airport)
+      allow(airport).to receive(:weather_status).and_return(:stormy)
+      expect{ subject.take_off }.to raise_error("Cannot take off in stormy weather")
     end
 
   end
