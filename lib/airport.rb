@@ -19,6 +19,7 @@ class Airport
   def store(plane)
     fail "Hangar is at capacity" if full?
     fail "Plane already in hangar" if hangar.include?(plane)
+    fail "Plane is currently at #{plane.current_location.name}" unless plane.current_location == nil
 
     plane.update_location(self)
     hangar << plane
