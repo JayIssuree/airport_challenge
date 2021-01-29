@@ -56,7 +56,7 @@ describe Airport do
 
     it 'should not store planes that are already flying' do
       allow(plane).to receive(:in_flight).and_return(true)
-      expect{ subject.store(plane) }.to raise_error("Cannot store plane that is in flight")
+      expect { subject.store(plane) }.to raise_error("Cannot store plane that is in flight")
     end
 
   end

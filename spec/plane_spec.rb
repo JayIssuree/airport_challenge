@@ -32,7 +32,7 @@ describe Plane do
 
     it 'should not land a plane that is not in flight' do
       allow(subject).to receive(:in_flight).and_return(false)
-      expect{ subject.land(airport) }.to raise_error("Cannot land a plane that is not in flight")
+      expect { subject.land(airport) }.to raise_error("Cannot land a plane that is not in flight")
     end
 
   end
@@ -55,7 +55,7 @@ describe Plane do
     end
 
     it 'should not take off a plane that is already in flight' do
-      expect{ subject.take_off }.to raise_error("Plane is already in flight")
+      expect { subject.take_off }.to raise_error("Plane is already in flight")
     end
 
   end
